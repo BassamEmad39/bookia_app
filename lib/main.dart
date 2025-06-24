@@ -1,8 +1,11 @@
 import 'package:bookie_app/core/routers/routers.dart';
+import 'package:bookie_app/core/services/dio_provider.dart';
 import 'package:bookie_app/core/utils/themes.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  DioProvider.init();
   runApp(const MainApp());
 }
 

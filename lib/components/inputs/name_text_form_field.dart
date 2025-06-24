@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 
 class NameTextFormField extends StatelessWidget {
   const NameTextFormField({
-    super.key, this.validator, this.hintText, this.controller, this.suffixIcon, this.keyboardType,
+    super.key,
+    this.validator,
+    this.hintText,
+    this.controller,
+    this.suffixIcon,
+    this.keyboardType,
   });
   final String? Function(String?)? validator;
   final String? hintText;
@@ -19,9 +24,11 @@ class NameTextFormField extends StatelessWidget {
       validator: validator,
       controller: controller,
       keyboardType: keyboardType,
-      decoration: InputDecoration(hintText: hintText,
-      suffixIcon: suffixIcon,
-      suffixIconConstraints:  BoxConstraints(maxWidth: 50),
-    ));
+      decoration: InputDecoration(
+        hintText: hintText,
+        suffixIcon: suffixIcon,
+        suffixIconConstraints: BoxConstraints(maxWidth: 50),
+      ),
+    );
   }
 }

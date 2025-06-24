@@ -40,7 +40,6 @@ class Routes {
         builder: (context, state) => CreateNewPasswordScreen(),
       ),
       GoRoute(path: success, builder: (context, state) => SuccessScreen()),
-
     ],
   );
 }

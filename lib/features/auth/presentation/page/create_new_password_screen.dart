@@ -32,9 +32,12 @@ class CreateNewPasswordScreen extends StatelessWidget {
               Gap(15),
               NameTextFormField(hintText: 'Confirm Password'),
               Gap(38),
-              MainButton(text: 'Reset Password', onPressed: () {
-                context.pushWithReplacement(Routes.success);
-              }),
+              MainButton(
+                text: 'Reset Password',
+                onPressed: () {
+                  context.pushWithReplacement(Routes.success);
+                },
+              ),
             ],
           ),
         ),

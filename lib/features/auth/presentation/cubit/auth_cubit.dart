@@ -1,0 +1,53 @@
+
+import 'package:bookie_app/features/auth/data/model/request/register_params.dart';
+import 'package:bookie_app/features/auth/data/repo/auth_repo.dart';
+import 'package:bookie_app/features/auth/presentation/cubit/auth_state.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class AuthCubit extends Cubit<AuthState> {
+  AuthCubit() : super(AuthInitialState());
+
+  final formKey = GlobalKey<FormState>();
+
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  RegisterParams params = RegisterParams();
+
+  register() {
+    emit(AuthLoadingState());
+    params.name = nameController.text;
+    params.email = emailController.text;
+    params.password = passwordController.text;
+    params.passwordConfirmation = confirmPasswordController.text;
+    try {
+      AuthRepo.register(params).then((value) {
+        if (value != null) {
+          emit(AuthSuccessState());
+        } else {
+          emit(AuthErrorState());
+        }
+      });
+    } on Exception catch (_) {
+      emit(AuthErrorState());
+    }
+  }
+  login() {
+    emit(AuthLoadingState());
+    params.email = emailController.text;
+    params.password = passwordController.text;
+    try {
+      AuthRepo.login(params).then((value) {
+        if (value != null) {
+          emit(AuthSuccessState());
+        } else {
+          emit(AuthErrorState());
+        }
+      });
+    } on Exception catch (_) {
+      emit(AuthErrorState());
+    }
+  }
+}

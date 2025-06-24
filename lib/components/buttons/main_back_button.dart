@@ -4,9 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 class MainBackButton extends StatelessWidget {
-  const MainBackButton({
-    super.key,
-  });
+  const MainBackButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +12,7 @@ class MainBackButton extends StatelessWidget {
       onTap: () {
         context.pop();
       },
-      child: Row(children: [SvgPicture.asset(AppAssets.backSvg)]));
+      child: Row(children: [SvgPicture.asset(AppAssets.backSvg)]),
+    );
   }
 }
