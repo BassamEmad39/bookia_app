@@ -1,4 +1,3 @@
-
 import 'package:bookie_app/features/auth/data/model/request/register_params.dart';
 import 'package:bookie_app/features/auth/data/repo/auth_repo.dart';
 import 'package:bookie_app/features/auth/presentation/cubit/auth_state.dart';
@@ -14,6 +13,9 @@ class AuthCubit extends Cubit<AuthState> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final verifyCodeController = TextEditingController();
+  final newPasswordController = TextEditingController();
+  final newConfirmPasswordController = TextEditingController();
   RegisterParams params = RegisterParams();
 
   register() {
@@ -22,6 +24,9 @@ class AuthCubit extends Cubit<AuthState> {
     params.email = emailController.text;
     params.password = passwordController.text;
     params.passwordConfirmation = confirmPasswordController.text;
+    params.verifyCode = verifyCodeController.text;
+    params.newPassword = newPasswordController.text;
+    params.newPasswordConfirmation = newConfirmPasswordController.text;
     try {
       AuthRepo.register(params).then((value) {
         if (value != null) {
@@ -34,12 +39,64 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthErrorState());
     }
   }
+
   login() {
     emit(AuthLoadingState());
     params.email = emailController.text;
     params.password = passwordController.text;
     try {
       AuthRepo.login(params).then((value) {
+        if (value != null) {
+          emit(AuthSuccessState());
+        } else {
+          emit(AuthErrorState());
+        }
+      });
+    } on Exception catch (_) {
+      emit(AuthErrorState());
+    }
+  }
+
+  forgetPassword() {
+    emit(AuthLoadingState());
+    params.email = emailController.text;
+    try {
+      AuthRepo.forgetPassword(params).then((value) {
+        if (value != null) {
+          emit(AuthSuccessState());
+        } else {
+          emit(AuthErrorState());
+        }
+      });
+    } on Exception catch (_) {
+      emit(AuthErrorState());
+    }
+  }
+
+  checkForgetPassword(String email) {
+    emit(AuthLoadingState());
+    params.email = email;
+    params.verifyCode = verifyCodeController.text;
+    try {
+      AuthRepo.checkForgetPassword(params).then((value) {
+        if (value != null) {
+          emit(AuthSuccessState());
+        } else {
+          emit(AuthErrorState());
+        }
+      });
+    } on Exception catch (_) {
+      emit(AuthErrorState());
+    }
+  }
+
+  resetPassword(String verifyCode) {
+    emit(AuthLoadingState());
+    params.verifyCode = verifyCode;
+    params.newPassword = newPasswordController.text;
+    params.newPasswordConfirmation = newConfirmPasswordController.text;
+    try {
+      AuthRepo.resetPassword(params).then((value) {
         if (value != null) {
           emit(AuthSuccessState());
         } else {

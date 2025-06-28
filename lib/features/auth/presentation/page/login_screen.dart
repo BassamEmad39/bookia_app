@@ -30,10 +30,11 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AuthCubit(),
-      child: BlocConsumer<AuthCubit,AuthState>(
+      child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthSuccessState) {
             context.pop();
+            showSuccessDialog(context, 'Login Successful');
             log('successful');
           } else if (state is AuthErrorState) {
             context.pop();
@@ -42,102 +43,109 @@ class _LoginScreenState extends State<LoginScreen> {
             showLoadingDialog(context);
           }
         },
-        builder:(context, state) {
-        final cubit = context.read<AuthCubit>();
+        builder: (context, state) {
+          final cubit = context.read<AuthCubit>();
           return Scaffold(
-          appBar: AppBar(automaticallyImplyLeading: false, title: MainBackButton()),
-          bottomNavigationBar: SafeArea(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Don\'t have an account?'),
-                TextButton(
-                  onPressed: () {
-                    context.pushWithReplacement(Routes.register);
-                  },
-                  child: Text('Register Now'),
-                ),
-              ],
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              title: MainBackButton(),
             ),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(22.0),
-            child: SingleChildScrollView(
-              child: Form(
-                key: cubit.formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Welcome back! Glad to see you, Again!',
-                      style: TextStyles.getHeadLine1(),
-                    ),
-                    Gap(30),
-                    NameTextFormField(hintText: 'Enter your email',
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
+            bottomNavigationBar: SafeArea(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Don\'t have an account?'),
+                  TextButton(
+                    onPressed: () {
+                      context.pushWithReplacement(Routes.register);
+                    },
+                    child: Text('Register Now'),
+                  ),
+                ],
+              ),
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(22.0),
+              child: SingleChildScrollView(
+                child: Form(
+                  key: cubit.formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Welcome back! Glad to see you, Again!',
+                        style: TextStyles.getHeadLine1(),
+                      ),
+                      Gap(30),
+                      NameTextFormField(
+                        hintText: 'Enter your email',
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
                             return 'Please enter your email';
                           } else if (!isEmailValid(value)) {
                             return 'Please enter a valid email address';
                           }
                           return null;
-                    },
-                      
-                      controller: cubit.emailController,
-                    ),
-                    Gap(15),
-                    NameTextFormField(
-                      controller: cubit.passwordController,
-                      hintText: 'Enter your password',
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your password';
-                        } 
-                        return null;
-                      },
-                      suffixIcon: Center(
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: SvgPicture.asset(AppAssets.eyeSvg),
+                        },
+
+                        controller: cubit.emailController,
+                      ),
+                      Gap(15),
+                      NameTextFormField(
+                        controller: cubit.passwordController,
+                        hintText: 'Enter your password',
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          return null;
+                        },
+                        suffixIcon: Center(
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: SvgPicture.asset(AppAssets.eyeSvg),
+                          ),
                         ),
                       ),
-                    ),
-                    Gap(10),
-                    TextButton(
-                      onPressed: () {
-                        context.pushWithReplacement(Routes.forgotPassword);
-                      },
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyles.getBody(
-                          color: Theme.of(context).colorScheme.primary,
+                      Gap(10),
+                      TextButton(
+                        onPressed: () {
+                          context.pushWithReplacement(Routes.forgotPassword);
+                        },
+                        child: Text(
+                          'Forgot Password?',
+                          style: TextStyles.getBody(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
                       ),
-                    ),
-                    Gap(30),
-                    MainButton(text: 'Login', onPressed: () {
-                      if (cubit.formKey.currentState!.validate()) {
-                        cubit.login();
-                      }
-                    }),
-                    Gap(15),
-                    Row(
-                      children: [
-                        Expanded(child: Divider()),
-                        Gap(10),
-                        Text('Or Login With'),
-                        Gap(10),
-                        Expanded(child: Divider()),
-                      ],
-                    ),
-                    Gap(20),
-                    SocialLogin(),
-                  ],
+                      Gap(30),
+                      MainButton(
+                        text: 'Login',
+                        onPressed: () {
+                          if (cubit.formKey.currentState!.validate()) {
+                            cubit.login();
+                          }
+                        },
+                      ),
+                      Gap(15),
+                      Row(
+                        children: [
+                          Expanded(child: Divider()),
+                          Gap(10),
+                          Text('Or Login With'),
+                          Gap(10),
+                          Expanded(child: Divider()),
+                        ],
+                      ),
+                      Gap(20),
+                      SocialLogin(),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        );
+          );
         },
       ),
     );

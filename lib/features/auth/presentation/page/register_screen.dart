@@ -31,6 +31,8 @@ class _LoginScreenState extends State<RegisterScreen> {
         listener: (context, state) {
           if (state is AuthSuccessState) {
             context.pop();
+            context.pushWithReplacement(Routes.login);
+            showSuccessDialog(context, 'Regestiration Successful.');
             log('Registration successful');
           } else if (state is AuthErrorState) {
             context.pop();

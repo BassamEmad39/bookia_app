@@ -41,4 +41,59 @@ class AuthRepo {
     }
     return null;
   }
+
+  static Future<UserResponse?> forgetPassword(RegisterParams params) async {
+    try {
+      var response = await DioProvider.post(
+        endPoint: AppConstants.forgetPassword,
+        data: params.toJson(),
+      );
+      // log(response.data.toString());
+      if (response.statusCode == 200) {
+        log(response.data.toString());
+        return UserResponse.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on Exception catch (e) {
+      log('Error during registration: $e');
+    }
+    return null;
+  }
+  static Future<UserResponse?> checkForgetPassword(RegisterParams params) async {
+    try {
+      var response = await DioProvider.post(
+        endPoint: AppConstants.checkForgetPassword,
+        data: params.toJson(),
+      );
+      // log(response.data.toString());
+      if (response.statusCode == 200) {
+        log(response.data.toString());
+        return UserResponse.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on Exception catch (e) {
+      log('Error during registration: $e');
+    }
+    return null;
+  }
+  static Future<UserResponse?> resetPassword(RegisterParams params) async {
+    try {
+      var response = await DioProvider.post(
+        endPoint: AppConstants.resetPassword,
+        data: params.toJson(),
+      );
+      // log(response.data.toString());
+      if (response.statusCode == 200) {
+        log(response.data.toString());
+        return UserResponse.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on Exception catch (e) {
+      log('Error during registration: $e');
+    }
+    return null;
+  }
 }

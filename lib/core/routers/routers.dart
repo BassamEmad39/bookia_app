@@ -34,10 +34,11 @@ class Routes {
         path: forgotPassword,
         builder: (context, state) => const ForgotPasswordScreen(),
       ),
-      GoRoute(path: otp, builder: (context, state) => OtpScreen()),
+      GoRoute(path: otp, builder: (context, state) => OtpScreen(email: state.extra as String,
+      )),
       GoRoute(
         path: createNewPassword,
-        builder: (context, state) => CreateNewPasswordScreen(),
+        builder: (context, state) => CreateNewPasswordScreen(verifyCode: state.extra as String,),
       ),
       GoRoute(path: success, builder: (context, state) => SuccessScreen()),
     ],
