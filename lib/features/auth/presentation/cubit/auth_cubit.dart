@@ -1,4 +1,6 @@
+import 'package:bookie_app/core/services/shared_pref.dart';
 import 'package:bookie_app/features/auth/data/model/request/register_params.dart';
+import 'package:bookie_app/features/auth/data/model/response/user_response/user.dart';
 import 'package:bookie_app/features/auth/data/repo/auth_repo.dart';
 import 'package:bookie_app/features/auth/presentation/cubit/auth_state.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +32,8 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       AuthRepo.register(params).then((value) {
         if (value != null) {
+          SharedPref.setUserInfo(value.data?.user ?? User());
+          SharedPref.setUserToken(value.data?.token ?? '');
           emit(AuthSuccessState());
         } else {
           emit(AuthErrorState());
@@ -47,6 +51,8 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       AuthRepo.login(params).then((value) {
         if (value != null) {
+          SharedPref.setUserInfo(value.data?.user ?? User());
+          SharedPref.setUserToken(value.data?.token ?? '');
           emit(AuthSuccessState());
         } else {
           emit(AuthErrorState());

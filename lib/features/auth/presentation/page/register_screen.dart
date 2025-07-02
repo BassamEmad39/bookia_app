@@ -30,8 +30,7 @@ class _LoginScreenState extends State<RegisterScreen> {
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthSuccessState) {
-            context.pop();
-            context.pushWithReplacement(Routes.login);
+            context.pushToBase(Routes.main);
             showSuccessDialog(context, 'Regestiration Successful.');
             log('Registration successful');
           } else if (state is AuthErrorState) {

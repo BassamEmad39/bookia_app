@@ -6,12 +6,11 @@ extension NavigationExtension on BuildContext {
     push(routeName);
   }
 
-  void pushWithReplacement(String routeName,{ Object? extra}) {
+  void pushWithReplacement(String routeName, {Object? extra}) {
     pushReplacement(routeName, extra: extra);
   }
 
   void pushToBase(String routeName) {
     go(routeName);
-
   }
 }

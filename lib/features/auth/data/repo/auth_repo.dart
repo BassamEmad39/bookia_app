@@ -23,6 +23,7 @@ class AuthRepo {
     }
     return null;
   }
+
   static Future<UserResponse?> login(RegisterParams params) async {
     try {
       var response = await DioProvider.post(
@@ -60,7 +61,10 @@ class AuthRepo {
     }
     return null;
   }
-  static Future<UserResponse?> checkForgetPassword(RegisterParams params) async {
+
+  static Future<UserResponse?> checkForgetPassword(
+    RegisterParams params,
+  ) async {
     try {
       var response = await DioProvider.post(
         endPoint: AppConstants.checkForgetPassword,
@@ -78,6 +82,7 @@ class AuthRepo {
     }
     return null;
   }
+
   static Future<UserResponse?> resetPassword(RegisterParams params) async {
     try {
       var response = await DioProvider.post(

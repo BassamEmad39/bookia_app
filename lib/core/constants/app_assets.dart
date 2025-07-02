@@ -12,7 +12,6 @@ class AppAssets {
   static String welcomeBg = '$imagePath/welcome_bg.png';
   static String loadingLottie = '$imagePath/loading.json';
 
-
   // icon variables
   static String eyeSvg = '$iconPath/eye.svg';
   static String backSvg = '$iconPath/back.svg';

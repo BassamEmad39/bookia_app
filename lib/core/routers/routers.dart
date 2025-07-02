@@ -6,6 +6,7 @@ import 'package:bookie_app/features/auth/presentation/page/register_screen.dart'
 import 'package:bookie_app/features/auth/presentation/page/success_screen.dart';
 import 'package:bookie_app/features/intro/page/splash_screen.dart';
 import 'package:bookie_app/features/intro/page/welcome_screen.dart';
+import 'package:bookie_app/features/main/main_app_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class Routes {
@@ -17,6 +18,7 @@ class Routes {
   static const String otp = '/otp';
   static const String createNewPassword = '/createNewPassword';
   static const String success = '/success';
+  static const String main = '/main';
 
   static final routers = GoRouter(
     routes: [
@@ -34,13 +36,18 @@ class Routes {
         path: forgotPassword,
         builder: (context, state) => const ForgotPasswordScreen(),
       ),
-      GoRoute(path: otp, builder: (context, state) => OtpScreen(email: state.extra as String,
-      )),
+      GoRoute(
+        path: otp,
+        builder: (context, state) => OtpScreen(email: state.extra as String),
+      ),
       GoRoute(
         path: createNewPassword,
-        builder: (context, state) => CreateNewPasswordScreen(verifyCode: state.extra as String,),
+        builder:
+            (context, state) =>
+                CreateNewPasswordScreen(verifyCode: state.extra as String),
       ),
       GoRoute(path: success, builder: (context, state) => SuccessScreen()),
+      GoRoute(path: main, builder: (context, state) => MainAppScreen()),
     ],
   );
 }

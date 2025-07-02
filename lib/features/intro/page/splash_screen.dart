@@ -1,6 +1,7 @@
 import 'package:bookie_app/core/constants/app_assets.dart';
 import 'package:bookie_app/core/extensions/navigations.dart';
 import 'package:bookie_app/core/routers/routers.dart';
+import 'package:bookie_app/core/services/shared_pref.dart';
 import 'package:bookie_app/core/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,9 +17,13 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    String token = SharedPref.getUserToken();
     Future.delayed(const Duration(seconds: 2), () {
-      // ignore: use_build_context_synchronously
-      context.pushWithReplacement(Routes.welcome);
+      if (token.isNotEmpty) {
+        context.pushWithReplacement(Routes.main);
+      } else {
+        context.pushWithReplacement(Routes.welcome);
+      }
     });
     super.initState();
   }

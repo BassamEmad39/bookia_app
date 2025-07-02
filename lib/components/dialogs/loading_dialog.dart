@@ -20,11 +20,9 @@ showErrorDialog(BuildContext context, String message) {
     ),
   );
 }
+
 showSuccessDialog(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(message),
-      duration: Duration(seconds: 3),
-    ),
+    SnackBar(content: Text(message), duration: Duration(seconds: 3)),
   );
 }

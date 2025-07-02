@@ -1,11 +1,13 @@
 import 'package:bookie_app/core/routers/routers.dart';
 import 'package:bookie_app/core/services/dio_provider.dart';
+import 'package:bookie_app/core/services/shared_pref.dart';
 import 'package:bookie_app/core/utils/themes.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DioProvider.init();
+  await SharedPref.init();
   runApp(const MainApp());
 }
 

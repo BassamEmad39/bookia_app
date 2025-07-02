@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bookie_app/components/buttons/main_back_button.dart';
 import 'package:bookie_app/components/buttons/main_button.dart';
 import 'package:bookie_app/components/dialogs/loading_dialog.dart';
@@ -33,12 +31,11 @@ class _LoginScreenState extends State<LoginScreen> {
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthSuccessState) {
-            context.pop();
+            context.pushToBase(Routes.main);
             showSuccessDialog(context, 'Login Successful');
-            log('successful');
           } else if (state is AuthErrorState) {
             context.pop();
-            showErrorDialog(context, 'Registration failed. Please try again.');
+            showErrorDialog(context, 'Login failed. Please try again.');
           } else if (state is AuthLoadingState) {
             showLoadingDialog(context);
           }
