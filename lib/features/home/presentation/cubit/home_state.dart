@@ -1,10 +1,12 @@
 class HomeState {}
 
-class HomeInitial extends HomeState{}
+class HomeInitial extends HomeState {}
 
-class HomeLoadingState extends HomeState{}
+class HomeLoadingState extends HomeState {}
 
-class HomeSuccessState extends HomeState{}
+class HomeSuccessState extends HomeState {}
 
-class HomeErrorState extends HomeState{}
 
+class AddedToWishlistState extends HomeState {}
+
+class HomeErrorState extends HomeState {}

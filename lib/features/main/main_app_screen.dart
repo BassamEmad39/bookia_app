@@ -1,6 +1,7 @@
 import 'package:bookie_app/core/constants/app_assets.dart';
 import 'package:bookie_app/core/utils/app_colors.dart';
 import 'package:bookie_app/features/home/presentation/pages/home_screen.dart';
+import 'package:bookie_app/features/wishlist/presentation/page/whishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -15,7 +16,7 @@ class _MyWidgetState extends State<MainAppScreen> {
   int currentIndex = 0;
   List<Widget> screens = [
     HomeScreen(),
-    Center(child: Text('Bookmark')),
+    WhishlistScreen(),
     Center(child: Text('Categories')),
     Center(child: Text('Profile')),
   ];

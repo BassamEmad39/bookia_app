@@ -20,8 +20,10 @@ class _SplashScreenState extends State<SplashScreen> {
     String token = SharedPref.getUserToken();
     Future.delayed(const Duration(seconds: 2), () {
       if (token.isNotEmpty) {
+        // ignore: use_build_context_synchronously
         context.pushWithReplacement(Routes.main);
       } else {
+        // ignore: use_build_context_synchronously
         context.pushWithReplacement(Routes.welcome);
       }
     });

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 extension NavigationExtension on BuildContext {
-  void navigateTo(String routeName) {
-    push(routeName);
+  void pushTo(String routeName, [Object? extra]) {
+    push(routeName, extra: extra);
   }
 
   void pushWithReplacement(String routeName, {Object? extra}) {

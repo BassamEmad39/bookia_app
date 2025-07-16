@@ -4,10 +4,11 @@ import 'package:bookie_app/features/home/data/model/slider_response/slider.dart'
 import 'package:bookie_app/features/home/data/model/slider_response/slider_response.dart';
 import 'package:bookie_app/features/home/data/repo/home_repo.dart';
 import 'package:bookie_app/features/home/presentation/cubit/home_state.dart';
+import 'package:bookie_app/features/wishlist/data/repo/wishlist_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit():super(HomeInitial());
+  HomeCubit() : super(HomeInitial());
 
   List<SliderModel> sliders = [];
   List<Product> bestSellers = [];
@@ -17,13 +18,28 @@ class HomeCubit extends Cubit<HomeState> {
 
     try {
       var futures = await Future.value([
-        HomeRepo().getSlider(),
-        HomeRepo().getBestSeller(),
+        HomeRepo.getSlider(),
+        HomeRepo.getBestSeller(),
       ]);
       sliders = ((await futures[0]) as SliderResponse).data?.sliders ?? [];
-      bestSellers = ((await futures[1]) as BestSellerResponse).data?.products ?? [];
+      bestSellers =
+          ((await futures[1]) as BestSellerResponse).data?.products ?? [];
 
       emit(HomeSuccessState());
+    } on Exception catch (_) {
+      emit(HomeErrorState());
+    }
+  }
+
+  Future<void> addToWishList(int productId) async {
+    emit(AddedToWishlistState());
+    try {
+      var response = await WishlistRepo.addToWishlist(productId);
+      if (response) {
+        emit(AddedToWishlistState());
+      } else {
+        emit(HomeErrorState());
+      }
     } on Exception catch (_) {
       emit(HomeErrorState());
     }

@@ -31,7 +31,12 @@ class HomeScreen extends StatelessWidget {
             return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Gap(25), HomeSlider(sliders: cubit.sliders,), Gap(15), BestSellerList(products: cubit.bestSellers,)],
+                children: [
+                  Gap(25),
+                  HomeSlider(sliders: cubit.sliders),
+                  Gap(15),
+                  BestSellerList(products: cubit.bestSellers),
+                ],
               ),
             );
           },

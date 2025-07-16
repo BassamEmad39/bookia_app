@@ -1,7 +1,12 @@
+import 'package:bookie_app/components/buttons/main_button.dart';
+import 'package:bookie_app/core/extensions/navigations.dart';
+import 'package:bookie_app/core/routers/routers.dart';
 import 'package:bookie_app/core/utils/app_colors.dart';
 import 'package:bookie_app/core/utils/text_styles.dart';
 import 'package:bookie_app/features/home/data/model/best_seller_response/product.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class BestSellerList extends StatelessWidget {
@@ -26,15 +31,70 @@ class BestSellerList extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                mainAxisExtent: 250,
+                mainAxisExtent: 290,
               ),
               itemBuilder: (context, index) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    products[index].image ?? '',
-                    fit: BoxFit.cover,
+                return GestureDetector(
+                  onTap: () {
+                    context.pushTo(Routes.details, products[index]);
+                  },
+                  child: Container(
+                    height: 290,
                     width: double.infinity,
+                    padding: EdgeInsets.all(11),
+                    decoration: BoxDecoration(
+                      color: AppColors.primary50Color,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Hero(
+                            tag: products[index].id ?? '',
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: CachedNetworkImage(
+                                imageUrl: products[index].image ?? '',
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Gap(5),
+                        SizedBox(
+                          height: 50,
+                          width: double.infinity,
+                          child: Text(
+                            '${products[index].name}',
+                            style: TextStyles.getTitle(),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                        Gap(5),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '\$${products[index].price}',
+                              style: TextStyles.getBody(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            MainButton(
+                              borderRadius: 5,
+                              bgColor: AppColors.darkColor,
+                              height: 30,
+                              width: 80,
+                              text: 'Buy',
+                              onPressed: () {},
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
@@ -44,6 +104,4 @@ class BestSellerList extends StatelessWidget {
       ),
     );
   }
-
-  
 }

@@ -4,6 +4,8 @@ import 'package:bookie_app/features/auth/presentation/page/login_screen.dart';
 import 'package:bookie_app/features/auth/presentation/page/otp_screen.dart';
 import 'package:bookie_app/features/auth/presentation/page/register_screen.dart';
 import 'package:bookie_app/features/auth/presentation/page/success_screen.dart';
+import 'package:bookie_app/features/home/data/model/best_seller_response/product.dart';
+import 'package:bookie_app/features/home/presentation/pages/book_details_screen.dart';
 import 'package:bookie_app/features/intro/page/splash_screen.dart';
 import 'package:bookie_app/features/intro/page/welcome_screen.dart';
 import 'package:bookie_app/features/main/main_app_screen.dart';
@@ -19,6 +21,7 @@ class Routes {
   static const String createNewPassword = '/createNewPassword';
   static const String success = '/success';
   static const String main = '/main';
+  static const String details = '/details';
 
   static final routers = GoRouter(
     routes: [
@@ -48,6 +51,12 @@ class Routes {
       ),
       GoRoute(path: success, builder: (context, state) => SuccessScreen()),
       GoRoute(path: main, builder: (context, state) => MainAppScreen()),
+      GoRoute(
+        path: details,
+        builder: (context, state) {
+          return BookDetailsScreen(product: state.extra as Product);
+        },
+      ),
     ],
   );
 }
